@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevScope : Connexion d'une application Web à des services et données externes">    
+    <title>DevScope</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <header class="flex p-3 bg-indigo-700 w-screen fixed top-0">
+        <nav>
+            <ul class="flex">
+                <a href="#"><li>Recherche</li></a>
+                <a href="#"><li>Short-list</li></a>
+            </ul>
+        </nav>
+    </header>
+    <main class="flex flex-col bg-gradient-to-b from-indigo-950 to-cyan-900 w-full h-screen pt-14 text-center">
+        <h1 class="text-white font-bold text-5xl mt-12">Trouvez les meilleurs<br>développeurs grâce à leur<br>code</h1>
+        <span>
+            <input type="text" name="username" id="username" class="w-[50%] self-center p-3 mt-14 rounded-lg" placeholder="Entrez un nom d'utilisateur">
+            <button id="btnRecherche" class="p-3 bg-green-500 hover:bg-green-400 rounded-lg text-white">Analyser</button>
+        </span>
+        <p id="error" class="text-red-500 mt-2 text-lg"></p>
+    </main>
+    
+</body>
+</html>
