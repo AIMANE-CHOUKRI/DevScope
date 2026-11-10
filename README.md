@@ -13,6 +13,6 @@ Votre mission : développer une application web qui récupère les profils et le
 
 ## Liens
 - Répositoire GitHub : https://github.com/AIMANE-CHOUKRI/DevScope
-- Planification des tâches (Jira) : https://aymanechoukri23.atlassian.net/jira/software/projects/DEVSCOPE/boards/68/backlog
-- Site déployé (GitHub Pages) : 
+- Planification des tâches (Jira) : https://aymanechoukri23.atlassian.net/jira/software/projects/DEVSCOPE/boards/68/backlog?atlOrigin=eyJpIjoiNjIxZDE3OWJmOTFhNGYyMDkyMGQyNTljNTk1NDM1NDAiLCJwIjoiaiJ9
+- Site déployé (GitHub Pages) : https://aimane-choukri.github.io/DevScope/
 - Présentation Canva : https://canva.link/v3u9d98mzcpce3j
