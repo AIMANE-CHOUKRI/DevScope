@@ -1,4 +1,4 @@
-import { validerUsername } from "./validation";
+import { validerUsername } from "./validation.js";
 
 export const inputUser = document.querySelector("#username");
 export const btnRecherche = document.querySelector("#btnRecherche");
@@ -19,5 +19,6 @@ btnRecherche.addEventListener('click',(e)=>{
             return;
         };
     };
+    window.location.href = `profil.html?username=${encodeURIComponent(username)}`;
 })
 
