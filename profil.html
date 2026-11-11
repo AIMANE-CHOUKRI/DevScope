@@ -11,16 +11,20 @@
 </head>
 <body>
     <header class="flex p-3 bg-gradient-to-b from-indigo-700 to-blue-600 w-screen fixed top-0 justify-between items-center">
-        <a href="#"><h2 id="logo" class="text-white text-nowrap text-shadow-black text-shadow-lg text-2xl"><i class="fab fa-searchengin"></i> DevScope</h2></a>
+        <a href="index.html"><h2 id="logo" class="text-white text-nowrap text-shadow-black text-shadow-lg text-2xl"><i class="fab fa-searchengin"></i> DevScope</h2></a>
         <nav>
             <ul class="flex gap-3">
-                <a href="#" class="p-2 bg-blue-900 hover:bg-indigo-700 hover:outline text-white rounded-lg text-nowrap"><li>Recherche</li></a>
-                <a href="#" class="p-2 bg-indigo-700 outline text-white rounded-lg"><li>Short-list</li></a>
+                <a href="index.html" class="p-2 bg-blue-900 hover:bg-indigo-700 hover:outline text-white rounded-lg"><li>Recherche</li></a>
+                <a href="#" class="p-2 bg-blue-900 hover:bg-indigo-700 hover:outline text-white rounded-lg text-nowrap"><li>Short-list</li></a>
             </ul>
         </nav>
     </header>
     <main class="flex flex-col bg-gradient-to-b from-indigo-950 to-cyan-900 w-full h-screen pt-16 text-center">
-        <h1>Profil</h1>
+        <span class="nowrap">
+            <input type="text" name="username" id="username" class="w-[50%] shadow-indigo-950 shadow-md self-center p-3 mt-3 rounded-lg" placeholder="Entrez un nom d'utilisateur">
+            <button id="btnRecherche" class="p-3 bg-green-500 shadow-indigo-950 shadow-md hover:bg-green-400 rounded-lg text-white">Analyser</button>
+        </span>
+        <p id="error" class="text-red-500 mt-2 text-lg"></p>
     </main>
 </body>
 </html>
