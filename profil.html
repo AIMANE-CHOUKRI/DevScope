@@ -19,11 +19,29 @@
             </ul>
         </nav>
     </header>
-    <main class="flex flex-col bg-gradient-to-b from-indigo-950 to-cyan-900 w-full h-screen pt-16 text-center">
+    <main id="mainUser" class="flex flex-col bg-gradient-to-b from-indigo-950 to-cyan-900 w-full h-screen pt-16 text-center">
         <span class="nowrap">
             <input type="text" name="username" id="username" class="w-[50%] shadow-indigo-950 shadow-md self-center p-3 mt-3 rounded-lg" placeholder="Entrez un nom d'utilisateur">
             <button id="btnRecherche" class="p-3 bg-green-500 shadow-indigo-950 shadow-md hover:bg-green-400 rounded-lg text-white">Analyser</button>
         </span>
+        <aside id="aside-infosUser" class="flex flex-col mb-5 bg-gradient-to-b from-indigo-700 to-blue-600">
+            <img id="avatar" class="h-32 w-32 rounded-full"/>
+            <h1 id="login">empty</h1>
+            <h3 id="name">empty</h3>
+            <h2 id="bio">empty</h2>
+            <span>
+                <p id="location">empty</p>
+                <p id="created_at">empty</p>
+            </span>
+            <article id="public_repos">empty</article>
+            <article id="followers">empty</article>
+            <article id="following">empty</article>
+            <button id="btnAjout">&#9734; Ajouter à la shortlist</button>
+            <button id="btnProfil">Voir le profil original &#8680;</button>
+        </aside>
+        <section id="section-reposUser">
+
+        </section>
         <p id="error" class="text-red-500 mt-2 text-lg"></p>
     </main>
 </body>
