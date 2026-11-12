@@ -12,25 +12,27 @@ const public_repos = document.querySelector("#public_repos");
 const followers = document.querySelector("#followers");
 const following = document.querySelector("#following");
 
-const info = new URLSearchParams(window.location.search).get("username");
-const donnees = await getUser(info);
+const infoUser = new URLSearchParams(window.location.search).get("username");
+const donneesUser = await getUser(infoUser);
 
-inputUser.value = info;
+console.log(donneesRepo);
 
-// console.log(donnees);
+inputUser.value = infoUser;
 
-// console.log(donnees.id, donnees.name, donnees.public_repos);
+// console.log(donneesUser);
+
+// console.log(donneesUser.id, donneesUser.name, donneesUser.public_repos);
 
 function showUser(){
-    avatar.setAttribute("src",donnees.avatar_url);
-    login.textContent = donnees.login;
-    name.textContent = donnees.name;
-    bio.textContent = donnees.bio;
-    location.textContent = donnees.location;
-    created_at.textContent = donnees.created_at;
-    public_repos.textContent = donnees.public_repos;
-    followers.textContent = donnees.followers;
-    following.textContent = donnees.following;
+    avatar.setAttribute("src",donneesUser.avatar_url);
+    name.textContent = donneesUser.name;
+    login.textContent = `@${donneesUser.login}`;
+    bio.textContent = `"${donneesUser.bio}"`;
+    location.textContent = donneesUser.location;
+    created_at.textContent = `Membre depuis ${donneesUser.created_at}`;
+    public_repos.textContent = donneesUser.public_repos;
+    followers.textContent = donneesUser.followers;
+    following.textContent = donneesUser.following;
 }
 showUser();
 

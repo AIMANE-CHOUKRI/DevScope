@@ -21,5 +21,4 @@ btnRecherche.addEventListener('click',(e)=>{
         };
     };
     window.location.href = `profil.html?username=${encodeURIComponent(username)}`;
-    getUser(username);
 })
