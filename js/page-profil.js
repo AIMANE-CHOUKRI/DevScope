@@ -228,6 +228,34 @@ btnAjout.addEventListener("click", async () => {
     }
 });
 
+// Chargement de la page
+async function chargerProfil() {
+    sectionUser.classList.add("hidden");
+    afficherChargement(etat);
+    try {
+        donneesUser = await getUser(infoUser);
+        donneesRepo = await getRepos(infoUser);
+        etat.textContent = "";
+        showUser();
+        nbRepos.textContent = donneesRepo.length;
+        if (donneesRepo.length === 0) {
+            spanRepos.textContent = "Ce développeur n'a aucun dépôt public.";
+        } else {
+            spanRepos.append(afficherepos());
+        }
+        sectionUser.classList.remove("hidden");
+        verifierShortlist();
+    } catch (error) {
+        console.log(error);
+        afficherErreur(etat, messageErreur(error), error.status === 404 ? null : chargerProfil);
+    }
+}
+
+if (!infoUser || !validerUsername(infoUser)) {
+    afficherErreur(etat, "Nom d'utilisateur invalide ou manquant. Lancez une nouvelle recherche.");
+} else {
+    chargerProfil();
+}
 
 // import { getUser } from "./api.js";
 // const user = getUser("AIMANE-CHOUKRI");
