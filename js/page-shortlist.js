@@ -168,3 +168,21 @@ boutonsFiltre.forEach(bouton => {
     });
 });
 
+async function chargerShortlist() {
+    compteur.textContent = "";
+    listeCandidats.replaceChildren();
+    afficherChargement(etat);
+    try {
+        candidats = await getCandidats();
+        afficher();
+    } catch (error) {
+        console.log(error);
+        const message = error.status
+            ? "Impossible de charger la shortlist (erreur " + error.status + "). Vérifiez l'adresse MockAPI dans js/config.js."
+            : "Connexion impossible. Vérifiez votre connexion internet.";
+        afficherErreur(etat, message, chargerShortlist);
+    }
+}
+
+majFiltres();
+chargerShortlist();
