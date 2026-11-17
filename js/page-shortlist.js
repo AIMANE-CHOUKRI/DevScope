@@ -132,3 +132,18 @@ formModif.addEventListener("submit", async (e) => {
 
 document.querySelector("#btnAnnuler").addEventListener("click", () => modal.close());
 
+async function supprimer(candidat, bouton) {
+    if (!confirm(`Supprimer ${candidat.name || candidat.login} de la shortlist ?`)) return;
+    msgAction.textContent = "";
+    bouton.disabled = true;
+    bouton.textContent = "Suppression…";
+    try {
+        await supprimerCandidat(candidat.id);
+        candidats = candidats.filter(c => c.id !== candidat.id);
+    } catch (error) {
+        console.log(error);
+        msgAction.textContent = "La suppression a échoué. Réessayez.";
+    }
+    afficher();
+}
+
