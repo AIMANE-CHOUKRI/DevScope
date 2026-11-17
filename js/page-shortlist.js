@@ -147,3 +147,24 @@ async function supprimer(candidat, bouton) {
     afficher();
 }
 
+champRecherche.addEventListener("input", afficher);
+choixTri.addEventListener("change", afficher);
+
+function majFiltres() {
+    boutonsFiltre.forEach(bouton => {
+        if (bouton.dataset.statut === statutActif) {
+            bouton.className = "btnFiltre p-2 bg-indigo-700 outline text-white rounded-lg";
+        } else {
+            bouton.className = "btnFiltre p-2 bg-blue-900 hover:bg-indigo-700 hover:outline text-white rounded-lg";
+        }
+    });
+}
+
+boutonsFiltre.forEach(bouton => {
+    bouton.addEventListener("click", () => {
+        statutActif = bouton.dataset.statut;
+        majFiltres();
+        afficher();
+    });
+});
+
