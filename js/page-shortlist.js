@@ -97,3 +97,38 @@ function afficher() {
     }
     trier(trouves).forEach(c => listeCandidats.append(creerCarte(c)));
 }
+function ouvrirModal(candidat) {
+    candidatModifie = candidat;
+    modalNom.textContent = candidat.name || candidat.login;
+    modalStatut.value = candidat.status;
+    modalNote.value = candidat.rating || 3;
+    modalCommentaire.value = candidat.note || "";
+    erreurModal.textContent = "";
+    modal.showModal();
+}
+
+formModif.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    erreurModal.textContent = "";
+    btnEnregistrer.disabled = true;
+    btnEnregistrer.textContent = "Enregistrement…";
+    try {
+        const misAJour = await modifierCandidat(candidatModifie.id, {
+            ...candidatModifie,
+            status: modalStatut.value,
+            rating: Number(modalNote.value),
+            note: modalCommentaire.value.trim()
+        });
+        candidats = candidats.map(c => c.id === misAJour.id ? misAJour : c);
+        modal.close();
+        afficher();
+    } catch (error) {
+        console.log(error);
+        erreurModal.textContent = "L'enregistrement a échoué. Réessayez.";
+    }
+    btnEnregistrer.disabled = false;
+    btnEnregistrer.textContent = "✓ Enregistrer";
+});
+
+document.querySelector("#btnAnnuler").addEventListener("click", () => modal.close());
+
