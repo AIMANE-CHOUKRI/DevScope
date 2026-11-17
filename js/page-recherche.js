@@ -22,3 +22,7 @@ btnRecherche.addEventListener('click',(e)=>{
     };
     window.location.href = `profil.html?username=${encodeURIComponent(username)}`;
 })
+
+inputUser.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") btnRecherche.click();
+});
