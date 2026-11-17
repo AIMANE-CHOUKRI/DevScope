@@ -165,6 +165,69 @@ function afficherepos() {
 }
 
 // }
+// Shortlist
+function langagePrincipal() {
+    const compte = {};
+    donneesRepo.forEach(repo => {
+        if (repo.language) compte[repo.language] = (compte[repo.language] || 0) + 1;
+    });
+    let langage = "Non précisé";
+    let max = 0;
+    for (const nom in compte) {
+        if (compte[nom] > max) {
+            max = compte[nom];
+            langage = nom;
+        }
+    }
+    return langage;
+}
+
+function dejaDansShortlist(candidats) {
+    return candidats.some(c => c.login.toLowerCase() === donneesUser.login.toLowerCase());
+}
+
+async function verifierShortlist() {
+    try {
+        const candidats = await getCandidats();
+        if (dejaDansShortlist(candidats)) {
+            btnAjout.disabled = true;
+            btnAjout.textContent = "✓ Déjà dans la shortlist";
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+btnAjout.addEventListener("click", async () => {
+    msgShortlist.textContent = "";
+    btnAjout.disabled = true;
+    btnAjout.textContent = "Ajout en cours…";
+    try {
+        const candidats = await getCandidats();
+        if (dejaDansShortlist(candidats)) {
+            btnAjout.textContent = "✓ Déjà dans la shortlist";
+            return;
+        }
+        await ajouterCandidat({
+            login: donneesUser.login,
+            name: donneesUser.name || donneesUser.login,
+            avatar_url: donneesUser.avatar_url,
+            html_url: donneesUser.html_url,
+            language: langagePrincipal(),
+            status: "À contacter",
+            note: "",
+            rating: 3,
+            createdAt: new Date().toISOString()
+        });
+        btnAjout.textContent = "✓ Ajouté à la shortlist";
+    } catch (error) {
+        console.log(error);
+        btnAjout.disabled = false;
+        btnAjout.textContent = "☆ Ajouter à la shortlist";
+        msgShortlist.textContent = error.status ? "L'ajout a échoué. Vérifiez l'adresse MockAPI dans js/config.js." : "Connexion impossible. Réessayez.";
+    }
+});
+
 
 // import { getUser } from "./api.js";
 // const user = getUser("AIMANE-CHOUKRI");
