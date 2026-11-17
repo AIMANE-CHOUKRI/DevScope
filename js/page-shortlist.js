@@ -22,6 +22,15 @@ let candidats = [];
 let statutActif = "Tous";
 let candidatModifie = null;
 
+function trier(liste) {
+    const copie = [...liste];
+    if (choixTri.value === "nom") {
+        copie.sort((a, b) => (a.name || a.login).localeCompare(b.name || b.login));
+    } else {
+        copie.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+    return copie;
+}
 
 function creerCarte(candidat) {
     const carte = document.createElement("article");
