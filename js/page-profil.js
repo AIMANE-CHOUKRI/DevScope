@@ -1,8 +1,12 @@
-import { getUser, getRepos } from "./api.js";
+import { getUser, getRepos, getCandidats, ajouterCandidat } from "./api.js";
 import { inputUser } from "./page-recherche.js";
+import { validerUsername } from "./validation.js";
+import { messageErreur, afficherChargement, afficherErreur } from "./states.js";
 
 // const users=inputUser.value;
 const main = document.querySelector("#mainUser");
+const etat = document.querySelector("#etat");
+const sectionUser = document.querySelector("#section-user");
 const avatar = document.querySelector("#avatar");
 const login = document.querySelector("#login");
 const name = document.querySelector("#name");
@@ -14,10 +18,13 @@ const followers = document.querySelector("#followers");
 const following = document.querySelector("#following");
 const btnProfil = document.querySelector("#btnProfil");
 const spanRepos = document.querySelector("#spanRepos");
+const nbRepos = document.querySelector("#nbRepos");
+const btnAjout = document.querySelector("#btnAjout");
+const msgShortlist = document.querySelector("#msgShortlist");
 
 const infoUser = new URLSearchParams(window.location.search).get("username");
-const donneesUser = await getUser(infoUser);
-const donneesRepo = await getRepos(infoUser);
+let donneesUser;
+let donneesRepo;
 // import { depos } from "./dépos.js";
 // console.log(depos);
 // console.log(donneesRepo);
@@ -30,11 +37,13 @@ inputUser.value = infoUser;
 
 function showUser() {
     avatar.setAttribute("src", donneesUser.avatar_url);
-    name.textContent = donneesUser.name;
+    avatar.setAttribute("alt", `Avatar de ${donneesUser.login}`);
+    name.textContent = donneesUser.name || donneesUser.login;
     login.textContent = `@${donneesUser.login}`;
-    bio.textContent = donneesUser.bio;
-    location.textContent = donneesUser.location;
-    created_at.textContent = `Membre depuis ${donneesUser.created_at}`;
+    bio.textContent = donneesUser.bio || "Aucune bio.";
+    location.textContent = donneesUser.location || "Lieu non renseigné";
+    const dateInscription = new Date(donneesUser.created_at).toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
+    created_at.textContent = `Membre depuis ${dateInscription}`;
     public_repos.textContent = donneesUser.public_repos;
     followers.textContent = donneesUser.followers;
     following.textContent = donneesUser.following;
@@ -43,8 +52,119 @@ function showUser() {
         window.open(`https://github.com/${donneesUser.login}`,"_blank","noopener,noreferrer");
     })
 }
-showUser();
-showRepos();
+
+// function showRepos() {
+//     donneesRepo.forEach(repo => {
+//         spanRepos.insertAdjacentHTML("beforeend", `
+//                 <article>
+//                     <h2 id="repoName">${repo.name}</h2>
+//                     <p id="description">${repo.description}</p>
+//                     <span>
+//                         <p id="language">${repo.language}</p>
+//                         <p id="stargazers_count">${repo.stargazers_count}</p>
+//                         <p id="forks_counts">${repo.forks_count}</p>
+//                     </span>
+//                     <p id="updated_at">${repo.updated_at}</p>
+//                 </article>
+//             `);
+//         // spanRepos.appendChild(carts);
+//     });
+//     // for (let i = 0; i < donneesRepo.length; i++){
+//     // const carts = document.createElement("div");
+//     // carts.className = "grid grid-cols-1 md:grid-cols-2 gap-4"
+//     // depos.forEach(repo => {
+//     //     const carte = document.createElement("div");
+//     //     carte.className = `bg-slate-800/20 border border-gray-800 rounded-xl p-4 hover:border-cyan-500/50 transition duration-300`;
+//     //     const titrerepos = document.createElement("p");
+//     //     titrerepos.className = "text-white font-bold text-lg mb-3";
+//     //     titrerepos.innerHTML = `<i class="fa-regular fa-square text-cyan-500"></i> ${repo.name}`;
+//     //     const description = document.createElement("p");
+//     //     description.className = "text-gray-400 text-sm mb-4";
+//     //     description.textContent = repo.description || "Aucune description.";
+//     //     const tichnolge = document.createElement("div");
+//     //     tichnolge.className = "flex items-center gap-4 mb-3";
+//     //     const nomtichno = document.createElement("p");
+//     //     nomtichno.className = "text-gray-300 text-sm";
+//     //     nomtichno.innerHTML = ` <i class="fa-solid fa-circle text-xs"></i> ${repo.language || "Non précisé"} `;
+//     //     const iconstichno1 = document.createElement("p");
+//     //     iconstichno1.className = "text-yellow-400 text-sm";
+//     //     iconstichno1.innerHTML = `<i class="fa-solid fa-star text-xs"></i> ${repo.stargazers_count} `;
+//     //     const iconstichno2 = document.createElement("p");
+//     //     iconstichno2.className = "text-cyan-400 text-sm";
+//     //     iconstichno2.innerHTML = `<i class="fa-solid fa-code-fork text-xs"></i> ${repo.forks_count}`;
+//     //     tichnolge.append(nomtichno, iconstichno1, iconstichno2);
+//     //     const datemisrepos = document.createElement("p");
+//     //     datemisrepos.className = "text-gray-500 text-xs font-medium";
+//     //     const dates = new Date(repo.updated_at);
+//     //     const today = new Date();
+//     //     const difference = today - dates;
+//     //     const jours = Math.floor(difference / (1000 * 60 * 60 * 24));
+//     //     datemisrepos.textContent = `Mis à jour il y a ${jours} jours`;
+//     //     carte.append(titrerepos, description, tichnolge, datemisrepos);
+//     //     carts.append(carte);
+
+//     // depos.insertAdjacentHTML("beforeend", `
+//     //         <article>
+//     //             <h2 id="repoName">${repo.name}</h2>
+//     //             <p id="description">${repo.description}</p>
+//     //             <span>
+//     //                 <p id="language">${repo.language}</p>
+//     //                 <p id="stargazers_count">${repo.stargazers_count}</p>
+//     //                 <p id="forks_counts">${repo.forks_counts}</p>
+//     //             </span>
+//     //             <p id="updated_at">${repo.updated_at}</p>
+//     //         </article>
+//     //     `);
+//     console.log("error")
+//         // spanRepos.appendChild(carts);
+// };
+
+function afficherepos() {
+    const carts = document.createElement("div");
+    carts.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+    donneesRepo.forEach(repo => {
+        const carte = document.createElement("div");
+        carte.className = "bg-gradient-to-b from-indigo-700 to-blue-600 border-2 border-white rounded-lg p-4 hover:from-indigo-600 hover:to-blue-500";
+        const titrerepos = document.createElement("p");
+        titrerepos.className = "text-white font-bold text-lg mb-3";
+        const iconeRepo = document.createElement("i");
+        iconeRepo.className = "fa-regular fa-square text-cyan-200";
+        titrerepos.append(iconeRepo, ` ${repo.name}`);
+        const description = document.createElement("p");
+        description.className = "text-gray-200 text-sm mb-4";
+        description.textContent = repo.description || "Aucune description.";
+        const tichnolge = document.createElement("div");
+        tichnolge.className = "flex items-center gap-4 mb-3";
+        const nomtichno = document.createElement("p");
+        nomtichno.className = "text-white text-sm";
+        const iconeLangage = document.createElement("i");
+        iconeLangage.className = "fa-solid fa-circle text-xs";
+        nomtichno.append(iconeLangage, ` ${repo.language || "Non précisé"}`);
+        const iconstichno1 = document.createElement("p");
+        iconstichno1.className = "text-yellow-400 text-sm";
+        const iconeEtoile = document.createElement("i");
+        iconeEtoile.className = "fa-solid fa-star text-xs";
+        iconstichno1.append(iconeEtoile, ` ${repo.stargazers_count}`);
+        const iconstichno2 = document.createElement("p");
+        iconstichno2.className = "text-cyan-200 text-sm";
+        const iconeFork = document.createElement("i");
+        iconeFork.className = "fa-solid fa-code-fork text-xs";
+        iconstichno2.append(iconeFork, ` ${repo.forks_count}`);
+        tichnolge.append(nomtichno, iconstichno1, iconstichno2);
+        const datemisrepos = document.createElement("p");
+        datemisrepos.className = "text-gray-200 text-xs font-medium";
+        const dates = new Date(repo.updated_at);
+        const today = new Date();
+        const difference = today - dates;
+        const jours = Math.floor(difference / (1000 * 60 * 60 * 24));
+        datemisrepos.textContent = `Mis à jour il y a ${jours} jours`;
+        carte.append(titrerepos,description,tichnolge,datemisrepos);
+        carts.append(carte);
+    });
+    return carts;
+}
+
+// }
 
 // import { getUser } from "./api.js";
 // const user = getUser("AIMANE-CHOUKRI");
