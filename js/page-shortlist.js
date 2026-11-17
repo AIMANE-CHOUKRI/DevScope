@@ -75,3 +75,25 @@ function creerCarte(candidat) {
     return carte;
 }
 
+function afficher() {
+    compteur.textContent = `${candidats.length} candidat(s) dans votre shortlist`;
+    listeCandidats.replaceChildren();
+    etat.textContent = "";
+
+    if (candidats.length === 0) {
+        afficherVide(etat, "Votre shortlist est vide. Analysez un développeur pour l'ajouter.", "index.html", "Lancer une recherche");
+        return;
+    }
+
+    const texte = champRecherche.value.trim().toLowerCase();
+    const trouves = candidats.filter(c =>
+        (statutActif === "Tous" || c.status === statutActif) &&
+        ((c.name || "").toLowerCase().includes(texte) || c.login.toLowerCase().includes(texte))
+    );
+
+    if (trouves.length === 0) {
+        etat.textContent = "Aucun candidat ne correspond à votre recherche.";
+        return;
+    }
+    trier(trouves).forEach(c => listeCandidats.append(creerCarte(c)));
+}
