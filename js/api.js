@@ -1,3 +1,18 @@
+async function request(url, methode = "GET", donnees = null){
+    const options = { method: methode };
+    if (donnees){
+        options.headers = { "Content-Type": "application/json" };
+        options.body = JSON.stringify(donnees);
+    }
+    const response = await fetch(url, options);
+    if (!response.ok){
+        const error = new Error("Erreur " + response.status);
+        error.status = response.status;
+        throw error;
+    }
+    return await response.json();
+}
+
 export async function getUser(user){
     // const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
     const response = await fetch(`https://api.github.com/users/${user}`);
