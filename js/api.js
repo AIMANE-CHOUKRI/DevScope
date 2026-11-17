@@ -14,16 +14,11 @@ async function request(url, methode = "GET", donnees = null){
 }
 
 export async function getUser(user){
-    // const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
-    const response = await fetch(`https://api.github.com/users/${user}`);
-    if (!response.ok) throw new Error("Erreur User " + response.status);
-    return await response.json();
+    return await request(`https://api.github.com/users/${user}`);
 }
 
 export async function getRepos(user){
-    const response = await fetch(`https://api.github.com/users/${user}/repos?per_page=100&sort=updated`);
-    if (!response.ok) throw new Error("Erreur Repo " + response.status);
-    return await response.json();
+    return await request(`https://api.github.com/users/${user}/repos?per_page=100&sort=updated`);
 }
 
 // export async function getRepos()
