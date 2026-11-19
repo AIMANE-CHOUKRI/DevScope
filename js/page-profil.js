@@ -197,6 +197,22 @@ async function verifierShortlist() {
     }
 }
 
+// Filtre
+
+const inputRecherche = document.querySelector("#inputRecherche");
+
+let langageChoisi = "Tous";
+boutonsLangage[0].classList.add("outline"); 
+
+function filtrerRepo(){
+    const texte = inputRecherche.value.trim().toLowerCase();
+    return donneesRepo.filter(repo => {
+        const bonLangage = langageChoisi === "Tous" || repo.language === langageChoisi;
+        const bonNom = repo.name.toLowerCase().includes(texte);
+        return bonLangage && bonNom;
+    });
+}
+
 btnAjout.addEventListener("click", async () => {
     msgShortlist.textContent = "";
     btnAjout.disabled = true;
