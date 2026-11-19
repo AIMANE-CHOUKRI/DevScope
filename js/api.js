@@ -1,3 +1,5 @@
+import { API_CANDIDATS } from "./config.js";
+
 async function request(url, methode = "GET", donnees = null){
     const options = { method: methode };
     if (donnees){
@@ -19,6 +21,24 @@ export async function getUser(user){
 
 export async function getRepos(user){
     return await request(`https://api.github.com/users/${user}/repos?per_page=100&sort=updated`);
+}
+
+// MockAPI
+
+export async function getCandidats(){
+    return await request(API_CANDIDATS);
+}
+
+export async function ajouterCandidat(candidat){
+    return await request(API_CANDIDATS, "POST", candidat);
+}
+
+export async function modifierCandidat(id, donnees){
+    return await request(`${API_CANDIDATS}/${id}`, "PUT", donnees);
+}
+
+export async function supprimerCandidat(id){
+    return await request(`${API_CANDIDATS}/${id}`, "DELETE");
 }
 
 // export async function getRepos()
