@@ -164,7 +164,6 @@ function afficherepos() {
     return carts;
 }
 
-// }
 // Shortlist
 function langagePrincipal() {
     const compte = {};
