@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevScope : Connexion d'une application Web à des services et données externes">
+    <title>DevScope - Profil</title>
+    <script src="https://kit.fontawesome.com/f30e99c421.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/page-profil.js" type="module"></script>
+</head>
+
+<body>
+    <header class="flex p-3 bg-gradient-to-b from-indigo-700 to-blue-600 w-screen fixed top-0 justify-between items-center">
+        <a href="index.html">
+            <h2 id="logo" class="text-white text-nowrap text-shadow-black text-shadow-lg text-2xl"><i class="fab fa-searchengin"></i> DevScope</h2>
+        </a>
+        <nav>
+            <ul class="flex gap-3 mr-4">
+                <li><a href="index.html" class="block p-2 bg-indigo-700 outline text-white rounded-lg">Recherche</a></li>
+                <li><a href="shortlist.html" class="block p-2 bg-blue-900 hover:bg-indigo-700 hover:outline text-white rounded-lg text-nowrap">Short-list</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main id="mainUser" class="flex flex-col bg-gradient-to-b from-indigo-950 to-cyan-900 w-full h-full pt-16 text-center">
+        <span class="nowrap mb-3">
+            <label for="username" class="sr-only">Nom d'utilisateur</label>
+            <input type="text" name="username" id="username" class="w-[50%] shadow-indigo-950 shadow-md self-center p-3 mt-3 rounded-lg" placeholder="Entrez un nom d'utilisateur">
+            <button id="btnRecherche" class="p-3 bg-green-500 shadow-indigo-950 shadow-md hover:bg-green-400 rounded-lg text-white">Analyser</button>
+        </span>
+        <div id="etat" class="text-white text-lg my-3"></div>
+        <section id="section-user" class="hidden flex gap-6">
+            <aside id="aside-infosUser" class="flex lg:ml-3 border-2 border-white rounded-lg self-center lg:self-start w-[90%] lg:w-[25%] flex-col bg-gradient-to-b from-indigo-700 to-blue-600 items-center p-2">
+                <img id="avatar" src="img/162797574.jpg" alt="Avatar GitHub" class="h-32 w-32 border-2 border-white rounded-full" />
+                <h1 id="name" class="text-2xl w-full">empty</h1>
+                <p id="login" class="w-full">empty</p>
+                <p id="bio" class="w-full text-gray-200 italic">empty</p>
+                <div class="bg-blue-950 text-white rounded-lg w-full my-2 text-start p-2">
+                    <p id="location">empty</p>
+                    <p id="created_at">empty</p>
+                </div>
+                <div class="w-full flex gap-2 justify-evenly">
+                    <article class="flex flex-col bg-blue-950 rounded-lg p-2 text-white text-xs"><span id="public_repos" class="text-lg font-semibold lining-nums">empty</span> Dépôts</article>
+                <article class="flex flex-col bg-blue-950 rounded-lg p-2 text-white text-xs"><span id="followers" class="text-lg font-semibold lining-nums">empty</span> Abonnés</article>
+                <article class="flex flex-col bg-blue-950 rounded-lg p-2 text-white text-xs"><span id="following" class="text-lg font-semibold lining-nums">empty</span> Abonnements</article>
+                </div>
+                <button id="btnAjout" class="bg-blue-950 text-white p-2 rounded-lg m-2 disabled:opacity-60">&#9734; Ajouter à la shortlist</button>
+                <p id="msgShortlist" class="text-red-300 text-sm"></p>
+                <button id="btnProfil" class="bg-blue-950 text-white p-2 rounded-lg m-1">Voir le profil original &#8680;</button>
+            </aside>
+            <section id="main-repos" class="flex-1 min-w-0 lg:mr-3">
+                <h2 class="text-white text-2xl">Dépôts <span id="nbRepos" class="bg-blue-950 rounded-lg px-2 text-sm"></span></h2>
+                <div id="spanRepos" class="text-white max-h-[75vh] overflow-y-auto pr-2"></div>
+            </section>
+        </section>
+        <p id="error" class="text-red-500 mt-2 text-lg"></p>
+    </main>
+</body>
+
+</html>

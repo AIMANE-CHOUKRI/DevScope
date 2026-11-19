@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DevScope : Connexion d'une application Web à des services et données externes">
+    <title>DevScope - Shortlist</title>
+    <script src="https://kit.fontawesome.com/f30e99c421.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/page-shortlist.js" type="module"></script>
+</head>
+
+<body>
+    <header class="flex p-3 bg-gradient-to-b from-indigo-700 to-blue-600 w-screen fixed top-0 justify-between items-center">
+        <a href="index.html">
+            <h2 id="logo" class="text-white text-nowrap text-shadow-black text-shadow-lg text-2xl"><i class="fab fa-searchengin"></i> DevScope</h2>
+        </a>
+        <nav>
+            <ul class="flex gap-3 mr-4">
+                <li><a href="index.html" class="block p-2 bg-blue-900 hover:bg-indigo-700 hover:outline text-white rounded-lg">Recherche</a></li>
+                <li><a href="shortlist.html" class="block p-2 bg-indigo-700 outline text-white rounded-lg text-nowrap">Short-list</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="flex flex-col bg-gradient-to-b from-indigo-950 to-cyan-900 w-full min-h-screen pt-20 px-4 pb-10 text-white">
+        <h1 class="font-bold text-4xl">Ma shortlist</h1>
+        <p id="compteur" class="mt-2"></p>
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mt-6">
+            <div id="filtres" class="flex flex-wrap gap-2">
+                <button class="btnFiltre" data-statut="Tous">Tous</button>
+                <button class="btnFiltre" data-statut="À contacter">À contacter</button>
+                <button class="btnFiltre" data-statut="Entretien">Entretien</button>
+                <button class="btnFiltre" data-statut="Retenu">Retenu</button>
+                <button class="btnFiltre" data-statut="Refusé">Refusé</button>
+            </div>
+            <span class="flex flex-col sm:flex-row gap-3">
+                <label for="rechercheCandidat" class="sr-only">Rechercher un candidat par nom ou login</label>
+                <input type="search" id="rechercheCandidat" class="shadow-indigo-950 shadow-md p-3 rounded-lg text-black" placeholder="Rechercher un candidat...">
+                <label for="choixTri" class="sr-only">Trier les candidats</label>
+                <select id="choixTri" class="shadow-indigo-950 shadow-md p-3 rounded-lg text-black">
+                    <option value="recent">Plus récents</option>
+                    <option value="nom">Nom A → Z</option>
+                </select>
+            </span>
+        </div>
+        <div id="etat" class="text-lg mt-6 text-center"></div>
+        <p id="msgAction" class="text-red-300 mt-2"></p>
+        <div id="listeCandidats" class="flex flex-col gap-4 mt-4"></div>
+    </main>
+
+    <dialog id="modalModif" class="w-[90%] max-w-md rounded-lg p-4 bg-gradient-to-b from-indigo-700 to-blue-600 border-2 border-white text-white backdrop:bg-black/60">
+        <form id="formModif" class="flex flex-col gap-2">
+            <p class="text-sm">Mise à jour du profil</p>
+            <h2 class="text-2xl font-bold">Modifier le candidat · <span id="modalNom"></span></h2>
+            <label for="modalStatut">Statut de recrutement</label>
+            <select id="modalStatut" class="p-2 rounded-lg text-black">
+                <option>À contacter</option>
+                <option>Entretien</option>
+                <option>Retenu</option>
+                <option>Refusé</option>
+            </select>
+            <label for="modalNote">Note</label>
+            <select id="modalNote" class="p-2 rounded-lg text-black">
+                <option value="5">★★★★★ 5 / 5</option>
+                <option value="4">★★★★☆ 4 / 5</option>
+                <option value="3">★★★☆☆ 3 / 5</option>
+                <option value="2">★★☆☆☆ 2 / 5</option>
+                <option value="1">★☆☆☆☆ 1 / 5</option>
+            </select>
+            <label for="modalCommentaire">Note interne</label>
+            <textarea id="modalCommentaire" rows="4" class="p-2 rounded-lg text-black"></textarea>
+            <p id="erreurModal" class="text-red-300 text-sm"></p>
+            <span class="flex justify-end gap-2">
+                <button type="button" id="btnAnnuler" class="bg-blue-950 text-white p-2 rounded-lg">Annuler</button>
+                <button type="submit" id="btnEnregistrer" class="bg-green-500 hover:bg-green-400 text-white p-2 rounded-lg disabled:opacity-60">✓ Enregistrer</button>
+            </span>
+        </form>
+    </dialog>
+</body>
+
+</html>
