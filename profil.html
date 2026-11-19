@@ -50,7 +50,24 @@
                 <button id="btnProfil" class="bg-blue-950 text-white p-2 rounded-lg m-1">Voir le profil original &#8680;</button>
             </aside>
             <section id="main-repos" class="flex-1 min-w-0 lg:mr-3">
-                <h2 class="text-white text-2xl">Dépôts <span id="nbRepos" class="bg-blue-950 rounded-lg px-2 text-sm"></span></h2>
+                <h2 class="text-white text-2xl">Dépôts <span id="nbRepos" class="bg-blue-800 rounded-lg px-2 text-sm"></span></h2>
+                
+                <div class="flex justify-between items-center border-white border-b-2 pb-[1vw]">
+                    <div>
+                        <button class="bg-gradient-to-b from-indigo-700 to-blue-600 hover:from-indigo-500 hover:to-blue-400 hover:outline p-1 rounded-lg text-white">Tous</button>
+                        <button class="bg-gradient-to-b from-indigo-700 to-blue-600 hover:from-indigo-500 hover:to-blue-400 hover:outline p-1 rounded-lg text-white">C</button>
+                        <button class="bg-gradient-to-b from-indigo-700 to-blue-600 hover:from-indigo-500 hover:to-blue-400 hover:outline p-1 rounded-lg text-white">HTML</button>
+                        <button class="bg-gradient-to-b from-indigo-700 to-blue-600 hover:from-indigo-500 hover:to-blue-400 hover:outline p-1 rounded-lg text-white">Java</button>
+                        <button class="bg-gradient-to-b from-indigo-700 to-blue-600 hover:from-indigo-500 hover:to-blue-400 hover:outline p-1 rounded-lg text-white">JavaScript</button>
+                        <button class="bg-gradient-to-b from-indigo-700 to-blue-600 hover:from-indigo-500 hover:to-blue-400 hover:outline p-1 rounded-lg text-white">PHP</button>
+                        <button class="bg-gradient-to-b from-indigo-700 to-blue-600 hover:from-indigo-500 hover:to-blue-400 hover:outline p-1 rounded-lg text-white">Python</button>
+                    </div>
+                    <div>
+                        <input id="inputRecherche" placeholder="Rechercher un dépôt..." type="text" class="p-2 rounded-lg w-80" />
+                    </div>
+                </div>
+                
+                <p id="msgDepot" class="text-red-500 mt-2 text-lg"></p>
                 <div id="spanRepos" class="text-white max-h-[75vh] overflow-y-auto pr-2"></div>
             </section>
         </section>
