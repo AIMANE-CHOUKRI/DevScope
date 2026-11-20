@@ -119,10 +119,10 @@ function showUser() {
 //         // spanRepos.appendChild(carts);
 // };
 
-function afficherepos() {
+function afficherepos(liste) {
     const carts = document.createElement("div");
     carts.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
-    donneesRepo.forEach(repo => {
+    liste.forEach(repo => {
         const carte = document.createElement("div");
         carte.className = "bg-gradient-to-b from-indigo-700 to-blue-600 border-2 border-white rounded-lg p-4 hover:from-indigo-600 hover:to-blue-500";
         const titrerepos = document.createElement("p");
@@ -200,6 +200,7 @@ async function verifierShortlist() {
 // Filtre
 
 const inputRecherche = document.querySelector("#inputRecherche");
+const msgDepot = document.querySelector("#msgDepot");
 
 let langageChoisi = "Tous";
 boutonsLangage[0].classList.add("outline"); 
@@ -211,6 +212,18 @@ function filtrerRepo(){
         const bonNom = repo.name.toLowerCase().includes(texte);
         return bonLangage && bonNom;
     });
+}
+
+function mettreAJourRepos(){
+    const liste = filtrerdRepo();
+    spanRepos.textContent = "";
+    msgDepot.textContent = "";
+    nbRepos.textContent = liste.length;
+    if (liste.length === 0){
+        msgDepot.textContent = "Aucun dépôt ne correspond à votre recherche.";
+    } else {
+        spanRepos.append(afficherepos(liste));
+    }
 }
 
 btnAjout.addEventListener("click", async () => {
