@@ -199,6 +199,7 @@ async function verifierShortlist() {
 
 // Filtre
 
+const boutonsLangage = document.querySelectorAll("#main-repos button");
 const inputRecherche = document.querySelector("#inputRecherche");
 const msgDepot = document.querySelector("#msgDepot");
 
@@ -225,6 +226,17 @@ function mettreAJourRepos(){
         spanRepos.append(afficherepos(liste));
     }
 }
+
+boutonsLangage.forEach(bouton => {
+    bouton.addEventListener("click", () => {
+        langageChoisi = bouton.textContent.trim();
+        boutonsLangage.forEach(b => b.classList.remove("outline")); 
+        bouton.classList.add("outline");                           
+        mettreAJourRepos();
+    });
+});
+
+inputRecherche.addEventListener("input", mettreAJourRepos);
 
 btnAjout.addEventListener("click", async () => {
     msgShortlist.textContent = "";
@@ -269,7 +281,7 @@ async function chargerProfil() {
         if (donneesRepo.length === 0) {
             spanRepos.textContent = "Ce développeur n'a aucun dépôt public.";
         } else {
-            spanRepos.append(afficherepos());
+            mettreAJourRepos();
         }
         sectionUser.classList.remove("hidden");
         verifierShortlist();
