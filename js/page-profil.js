@@ -216,7 +216,7 @@ function filtrerRepo(){
 }
 
 function mettreAJourRepos(){
-    const liste = filtrerdRepo();
+    const liste = filtrerRepo();
     spanRepos.textContent = "";
     msgDepot.textContent = "";
     nbRepos.textContent = liste.length;
